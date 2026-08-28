@@ -15,26 +15,21 @@
  */
 class Solution {
     private int maxSum = Integer.MIN_VALUE;
-
     public int maxPathSum(TreeNode root) {
         dfs(root);
         return maxSum;
     }
 
-    private int dfs(TreeNode node) {
-        if (node == null) return 0;
+    private int dfs(TreeNode node){
+        if(node == null) return 0;
 
-        // Compute max gain from left and right
-        int leftGain = Math.max(dfs(node.left), 0);
-        int rightGain = Math.max(dfs(node.right), 0);
+        int leftPath = Math.max(dfs(node.left),0);
+        int rightPath = Math.max(dfs(node.right),0);
 
-        // Path sum through this node
-        int currentPath = node.val + leftGain + rightGain;
+        int currPath = node.val + leftPath + rightPath;
 
-        // Update global max
-        maxSum = Math.max(maxSum, currentPath);
+        maxSum = Math.max(currPath, maxSum);
 
-        // Return max gain to parent
-        return node.val + Math.max(leftGain, rightGain);
+        return node.val+ Math.max(leftPath, rightPath); 
     }
 }
